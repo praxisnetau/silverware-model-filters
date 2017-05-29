@@ -1,0 +1,23 @@
+---
+Name: silverware-model-filters
+---
+
+# Configure Model Admin:
+
+SilverStripe\Admin\ModelAdmin:
+  extensions:
+    - SilverWare\ModelFilters\Extensions\ModelAdminExtension
+
+# Configure Data Object:
+
+SilverStripe\ORM\DataObject:
+  extensions:
+    - SilverWare\ModelFilters\Extensions\DataObjectExtension
+
+# Configure Admin Requirements:
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - silverware-model-filters/admin/client/dist/styles/bundle.css
+  extra_requirements_javascript:
+    - silverware-model-filters/admin/client/dist/js/bundle.js

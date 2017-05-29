@@ -1,0 +1,48 @@
+/* Admin Styles
+===================================================================================================================== */
+
+.cms {
+  
+  .grid-field__table {
+    
+    tbody {
+      
+      td {
+        
+        &.col-StatusBadges {
+          
+          span.badge {
+            
+            clear: both;
+            display: inline-block;
+            text-transform: uppercase;
+            padding: 0 3px;
+            font-size: 0.75em;
+            line-height: 1.2em;
+            border-radius: 2px;
+            
+            &.status-archived,
+            &.status-removedfromdraft {
+              color: #556B7C;
+              border: 1px solid #7F96A8;
+              background-color: #F7F7F7;
+            }
+            
+            &.status-modified,
+            &.status-addedtodraft {
+              color: #7E7470;
+              border: 1px solid #C9B800;
+              background-color: #FFF0BC;
+            }
+            
+          }
+          
+        }
+        
+      }
+      
+    }
+    
+  }
+  
+}
