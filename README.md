@@ -1,5 +1,9 @@
 # SilverWare Model Filters Module
 
+[![Latest Stable Version](https://poser.pugx.org/silverware/model-filters/v/stable)](https://packagist.org/packages/silverware/model-filters)
+[![Latest Unstable Version](https://poser.pugx.org/silverware/model-filters/v/unstable)](https://packagist.org/packages/silverware/model-filters)
+[![License](https://poser.pugx.org/silverware/model-filters/license)](https://packagist.org/packages/silverware/model-filters)
+
 Extends the [SilverStripe v4][silverstripe] `ModelAdmin` to support filtering of versioned data objects.
 
 ## Contents
