@@ -47,6 +47,12 @@ class DraftOnlyFilter extends Filter
      */
     public function apply()
     {
-        return $this->getDraftRecords()->exclude('ID', $this->getLiveIds());
+        $records = $this->getDraftRecords();
+        
+        if ($ids = $this->getLiveIds()) {
+            $records = $records->exclude('ID', $ids);
+        }
+        
+        return $records;
     }
 }

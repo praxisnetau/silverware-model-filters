@@ -47,6 +47,12 @@ class ArchivedOnlyFilter extends Filter
      */
     public function apply()
     {
-        return $this->getRecordsIncludingArchived()->exclude('ID', $this->getStagedIds());
+        $records = $this->getRecordsIncludingArchived();
+        
+        if ($ids = $this->getStagedIds()) {
+            $records = $records->exclude('ID', $ids);
+        }
+        
+        return $records;
     }
 }

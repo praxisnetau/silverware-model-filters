@@ -47,6 +47,12 @@ class LiveOnlyFilter extends Filter
      */
     public function apply()
     {
-        return $this->getLiveRecords()->exclude('ID', $this->getDraftIds());
+        $records = $this->getLiveRecords();
+        
+        if ($ids = $this->getDraftIds()) {
+            $records = $records->exclude('ID', $ids);
+        }
+        
+        return $records;
     }
 }
