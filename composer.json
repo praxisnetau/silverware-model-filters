@@ -21,7 +21,7 @@
   ],
   "require": {
     "php": ">=5.6.0",
-    "silverstripe/admin": "^4@dev",
+    "silverstripe/admin": "^1@dev",
     "silverstripe/framework": "^4@dev",
     "silverstripe/versioned": "^1@dev"
   },
