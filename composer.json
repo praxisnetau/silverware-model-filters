@@ -1,6 +1,6 @@
 {
   "name": "silverware/model-filters",
-  "type": "silverstripe-module",
+  "type": "silverstripe-vendormodule",
   "description": "SilverWare Model Filters Module.",
   "homepage": "https://github.com/praxisnetau/silverware-model-filters",
   "keywords": [
@@ -34,7 +34,9 @@
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     },
-    "installer-name": "silverware-model-filters"
+    "expose": [
+      "admin/client/dist"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true
