@@ -18,6 +18,6 @@ SilverStripe\ORM\DataObject:
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - silverware-model-filters/admin/client/dist/styles/bundle.css
+    - "silverware/model-filters: admin/client/dist/styles/bundle.css"
   extra_requirements_javascript:
-    - silverware-model-filters/admin/client/dist/js/bundle.js
+    - "silverware/model-filters: admin/client/dist/js/bundle.js"
