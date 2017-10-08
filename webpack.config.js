@@ -5,6 +5,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 
 // Load Plugin Modules:
 
@@ -18,7 +19,7 @@ const PATHS = {
     SRC: path.resolve(__dirname, 'admin/client/src'),
     DIST: path.resolve(__dirname, 'admin/client/dist'),
     BUNDLES: path.resolve(__dirname, 'admin/client/src/bundles'),
-    PUBLIC: '/silverware-model-filters/admin/client/dist/'
+    PUBLIC: '/resources/silverware/model-filters/admin/client/dist/'
   },
   MODULES: path.resolve(__dirname, 'node_modules')
 };
@@ -52,7 +53,10 @@ const rules = (env) => {
           loader: 'css-loader'
         },
         {
-          loader: 'postcss-loader'
+          loader: 'postcss-loader',
+          options: {
+            plugins: [ autoprefixer ] // see "browserslist" in package.json
+          }
         }
       ])
     },
@@ -63,7 +67,10 @@ const rules = (env) => {
           loader: 'css-loader'
         },
         {
-          loader: 'postcss-loader'
+          loader: 'postcss-loader',
+          options: {
+            plugins: [ autoprefixer ] // see "browserslist" in package.json
+          }
         },
         {
           loader: 'sass-loader',
@@ -156,7 +163,7 @@ const config = (env) => {
       plugins: plugins(env, PATHS.ADMIN.SRC, PATHS.ADMIN.DIST),
       resolve: {
         alias: {
-          'silverstripe-admin': path.resolve(process.env.PWD, '../silverstripe-admin/client/src')
+          'silverstripe-admin': path.resolve(process.env.PWD, '../../silverstripe/admin/client/src')
         },
         modules: [
           PATHS.ADMIN.SRC,
