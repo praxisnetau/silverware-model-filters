@@ -14,13 +14,3 @@
  * @license https://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  * @link https://github.com/praxisnetau/silverware-model-filters
  */
-
-// Define Module Constants:
-
-if (!defined('SILVERWARE_MODEL_FILTERS_DIR')) {
-    define('SILVERWARE_MODEL_FILTERS_DIR', basename(__DIR__));
-}
-
-if (!defined('SILVERWARE_MODEL_FILTERS_PATH')) {
-    define('SILVERWARE_MODEL_FILTERS_PATH', realpath(__DIR__));
-}
