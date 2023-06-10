@@ -48,33 +48,32 @@ class ModelAdminExtension extends Extension
     public function updateSearchForm(Form $form)
     {
         if ($this->isVersioned()) {
-            
+
             // Obtain Field List:
-            
+
             $fields = $form->Fields();
-            
+
             // Create Filter Field:
-            
+
             $filter = DropdownField::create(
-                'q[FilterClass]',
+                'FilterClass',
                 $this->owner->getStatusFieldTitle(),
                 $this->getFilterClassOptions(),
                 $this->getFilterClass()
             )->setForm($form);
-            
+
             // Add Filter Field to Form:
-            
-            if ($this->owner->StatusFieldBefore) {
-                $fields->insertBefore(sprintf('q[%s]', $this->owner->StatusFieldBefore), $filter);
-            } elseif ($this->owner->StatusFieldAfter) {
-                $fields->insertAfter(sprintf('q[%s]', $this->owner->StatusFieldAfter), $filter);
-            } else {
+
+            // if ($this->owner->StatusFieldBefore) {
+            //     $fields->insertBefore(sprintf('q[%s]', $this->owner->StatusFieldBefore), $filter);
+            // } elseif ($this->owner->StatusFieldAfter) {
+            //     $fields->insertAfter(sprintf('q[%s]', $this->owner->StatusFieldAfter), $filter);
+            // } else {
                 $fields->push($filter);
-            }
-            
+            // }
         }
     }
-    
+
     /**
      * Updates the given data list object.
      *
@@ -85,14 +84,13 @@ class ModelAdminExtension extends Extension
     public function updateList(DataList &$list)
     {
         if ($this->isVersioned()) {
-            
             if ($filter = $this->getFilter($list)) {
                 $list = $filter->apply();
             }
-            
+
         }
     }
-    
+
     /**
      * Answers the title for the status filter field.
      *
@@ -102,7 +100,7 @@ class ModelAdminExtension extends Extension
     {
         return _t(__CLASS__ . '.RECORDSTATUS', 'Record status');
     }
-    
+
     /**
      * Answers the array of filter parameters from the HTTP request.
      *
@@ -110,9 +108,19 @@ class ModelAdminExtension extends Extension
      */
     protected function getParams()
     {
-        return $this->owner->getRequest()->requestVar('q');
+        $request_vars = $this->owner->getRequest()->requestVars();
+        $model_class = $this->owner->getRequest()->allParams()['ModelClass'] ?? null;
+
+        if (
+            array_key_exists('filter', $request_vars)
+            && array_key_exists($model_class, $request_vars["filter"])
+        ) {
+            return ['FilterClass' => $request_vars["filter"][$model_class]['FilterClass']];
+        } else {
+            return ['FilterClass' => $this->owner->getRequest()->requestVar('FilterClass')];
+        }
     }
-    
+
     /**
      * Answers the filter object selected by the user, or the default filter object.
      *
@@ -125,10 +133,9 @@ class ModelAdminExtension extends Extension
         if ($class = $this->getFilterClass()) {
             return Injector::inst()->create($class, $list, $this->getParams());
         }
-        
         return DefaultFilter::create($list, $this->getParams());
     }
-    
+
     /**
      * Answers the filter class selected by the user.
      *
@@ -137,10 +144,9 @@ class ModelAdminExtension extends Extension
     protected function getFilterClass()
     {
         $params = $this->getParams();
-        
         return isset($params['FilterClass']) ? $params['FilterClass'] : null;
     }
-    
+
     /**
      * Answers true if the current model class uses the versioned extension.
      *
@@ -150,7 +156,7 @@ class ModelAdminExtension extends Extension
     {
         return Injector::inst()->get($this->owner->modelClass)->hasExtension(Versioned::class);
     }
-    
+
     /**
      * Answers an array of options for the filter class field.
      *
@@ -159,31 +165,31 @@ class ModelAdminExtension extends Extension
     protected function getFilterClassOptions()
     {
         // Create Options:
-        
+
         $options = [];
-        
+
         // Obtain Filter Subclasses:
-        
+
         $filters = ClassInfo::subclassesFor(Filter::class);
-        
+
         // Remove Abstract Superclass:
-        
+
         array_shift($filters);
-        
+
         // Define Options:
-        
+
         foreach ($filters as $filter) {
             $options[$filter] = $filter::singleton()->getTitle();
         }
-        
+
         // Sort Options, Ensuring Default Filter is First:
-        
+
         uasort($options, function ($a, $b) {
             return ($a === DefaultFilter::singleton()->getTitle()) ? -1 : strcasecmp($a, $b);
         });
-        
+
         // Answer Options:
-        
+
         return $options;
     }
 }
